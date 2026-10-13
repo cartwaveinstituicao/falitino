@@ -1,0 +1,386 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Atendimento Solver: suporte claro e seguro para 2ª via, quitação e mensalidades em atraso." />
+    <meta name="theme-color" content="#0c0c0d" />
+    <link rel="canonical" href="https://faletino.info/" />
+    <title>Atendimento Solver | 2ª via, quitação e mensalidades em atraso</title>
+    <style>
+      :root {
+        --ink: #0c0c0d;
+        --ink-soft: #141416;
+        --paper: #fbfaf8;
+        --muted: #737178;
+        --line: rgba(12, 12, 13, 0.12);
+        --line-dark: rgba(255, 255, 255, 0.15);
+        --red: #e63232;
+        --red-dark: #b91f26;
+        --red-soft: #fff0ef;
+        --white: #ffffff;
+        --shadow: 0 24px 70px rgba(12, 12, 13, 0.13);
+        --ease: cubic-bezier(0.23, 1, 0.32, 1);
+      }
+
+      * { box-sizing: border-box; }
+      html { scroll-behavior: smooth; }
+      body {
+        margin: 0;
+        color: var(--ink);
+        background: var(--paper);
+        font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        -webkit-font-smoothing: antialiased;
+      }
+      body::before {
+        content: "";
+        position: fixed;
+        inset: 0;
+        pointer-events: none;
+        opacity: .035;
+        z-index: 20;
+        background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.32'/%3E%3C/svg%3E");
+      }
+      a { color: inherit; text-decoration: none; }
+      button, a { -webkit-tap-highlight-color: transparent; }
+      .wrap { width: min(1180px, calc(100% - 48px)); margin: 0 auto; }
+      .eyebrow {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        color: var(--red);
+        font-size: 11px;
+        font-weight: 800;
+        letter-spacing: .18em;
+        text-transform: uppercase;
+      }
+      .eyebrow::before { content: ""; width: 28px; height: 2px; background: currentColor; }
+      .display {
+        margin: 0;
+        font-size: clamp(42px, 6.2vw, 82px);
+        line-height: .98;
+        letter-spacing: -.065em;
+        font-weight: 850;
+      }
+      .display em { color: var(--red); font-style: normal; }
+      .section { padding: 112px 0; }
+      .section-head { display: flex; align-items: end; justify-content: space-between; gap: 40px; margin-bottom: 54px; }
+      .section-head h2 { max-width: 560px; margin: 14px 0 0; font-size: clamp(34px, 4.2vw, 58px); line-height: 1.02; letter-spacing: -.055em; }
+      .section-head p { max-width: 360px; margin: 0 0 5px; color: var(--muted); line-height: 1.7; font-size: 15px; }
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        min-height: 52px;
+        padding: 0 22px;
+        border-radius: 999px;
+        border: 1px solid transparent;
+        font-size: 13px;
+        font-weight: 800;
+        letter-spacing: -.01em;
+        transition: transform .18s var(--ease), box-shadow .18s var(--ease), background .18s ease, border-color .18s ease;
+      }
+      .btn:hover { transform: translateY(-3px); box-shadow: 0 14px 26px rgba(12, 12, 13, .15); }
+      .btn:active { transform: scale(.97); }
+      .btn-red { color: #fff; background: var(--red); }
+      .btn-red:hover { background: #f04545; }
+      .btn-dark { color: #fff; background: var(--ink); }
+      .btn-light { color: var(--ink); background: #fff; }
+      .btn-outline { color: #fff; border-color: rgba(255,255,255,.25); }
+      .btn-outline:hover { border-color: #fff; background: rgba(255,255,255,.09); }
+      .arrow { font-size: 17px; line-height: 0; }
+
+      .topline { color: #fff; background: var(--ink); font-size: 11px; letter-spacing: .09em; }
+      .topline .wrap { display: flex; justify-content: space-between; gap: 20px; padding: 10px 0; }
+      .topline strong { color: #fff; font-weight: 750; }
+      .topline span { color: #aaa9ad; }
+      header { position: sticky; top: 0; z-index: 15; background: rgba(251,250,248,.9); border-bottom: 1px solid rgba(12,12,13,.08); backdrop-filter: blur(18px); }
+      .nav { display: flex; align-items: center; justify-content: space-between; min-height: 80px; gap: 26px; }
+      .brand { display: inline-flex; align-items: center; gap: 12px; min-width: max-content; }
+      .brand-mark { display: grid; place-items: center; width: 39px; height: 39px; color: #fff; background: var(--red); border-radius: 12px; font-size: 13px; font-weight: 900; letter-spacing: -.08em; box-shadow: 0 8px 18px rgba(230,50,50,.24); }
+      .brand-copy { display: grid; gap: 2px; line-height: 1; }
+      .brand-copy strong { font-size: 14px; letter-spacing: -.04em; }
+      .brand-copy span { color: var(--muted); font-size: 10px; font-weight: 700; letter-spacing: .03em; }
+      .nav-links { display: flex; align-items: center; gap: 27px; color: #616065; font-size: 12px; font-weight: 750; }
+      .nav-links a { transition: color .2s ease; }
+      .nav-links a:hover { color: var(--red); }
+      .nav-cta { min-height: 44px; padding: 0 18px; font-size: 12px; }
+
+      .hero { position: relative; overflow: hidden; color: #fff; background: var(--ink); }
+      .hero::before { content: ""; position: absolute; width: 680px; height: 680px; right: -170px; top: -250px; border-radius: 50%; background: radial-gradient(circle, rgba(230,50,50,.32), transparent 66%); }
+      .hero::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 1px; background: linear-gradient(90deg, transparent, rgba(255,255,255,.26), transparent); }
+      .hero-grid { position: relative; z-index: 1; display: grid; grid-template-columns: 1.08fr .92fr; align-items: center; gap: 72px; min-height: 680px; padding: 88px 0 110px; }
+      .hero-copy { max-width: 700px; }
+      .hero .eyebrow { color: #ff5a5a; }
+      .hero h1 { max-width: 760px; margin: 22px 0 24px; }
+      .hero-lead { max-width: 560px; margin: 0; color: #b9b7bc; font-size: clamp(16px, 2vw, 19px); line-height: 1.65; }
+      .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 36px; }
+      .hero-note { display: flex; align-items: center; gap: 10px; margin-top: 24px; color: #85838a; font-size: 11px; }
+      .hero-note svg { color: #4fdb9f; flex: 0 0 auto; }
+      .hero-art { position: relative; min-height: 460px; }
+      .hero-orbit { position: absolute; width: 430px; height: 430px; right: 3%; top: 16px; border: 1px solid rgba(255,255,255,.14); border-radius: 50%; transform: rotate(-21deg); }
+      .hero-orbit::before, .hero-orbit::after { content: ""; position: absolute; border: 1px solid rgba(255,255,255,.08); border-radius: 50%; }
+      .hero-orbit::before { inset: 34px; }
+      .hero-orbit::after { inset: 86px; }
+      .hero-card { position: absolute; right: 2%; top: 62px; width: min(100%, 370px); padding: 28px; color: var(--ink); background: rgba(255,255,255,.97); border-radius: 25px; box-shadow: 0 30px 70px rgba(0,0,0,.28); transform: rotate(3deg); }
+      .hero-card::before { content: ""; position: absolute; inset: 0; border-radius: inherit; pointer-events: none; background: linear-gradient(135deg, rgba(230,50,50,.1), transparent 36%); }
+      .card-top { position: relative; display: flex; align-items: flex-start; justify-content: space-between; }
+      .mini-label { color: var(--muted); font-size: 10px; font-weight: 850; letter-spacing: .14em; text-transform: uppercase; }
+      .status { display: inline-flex; align-items: center; gap: 6px; color: #1b966a; font-size: 10px; font-weight: 800; }
+      .status::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: #2ac386; box-shadow: 0 0 0 4px rgba(42,195,134,.13); }
+      .hero-card h3 { position: relative; margin: 38px 0 8px; font-size: 29px; line-height: 1.04; letter-spacing: -.055em; }
+      .hero-card p { position: relative; margin: 0; color: var(--muted); font-size: 13px; line-height: 1.6; }
+      .card-divider { position: relative; height: 1px; margin: 26px 0 21px; background: var(--line); }
+      .card-row { position: relative; display: flex; justify-content: space-between; align-items: center; margin-top: 16px; font-size: 12px; }
+      .card-row span:first-child { color: var(--muted); }
+      .card-row strong { font-size: 12px; }
+      .secure-chip { position: absolute; left: 0; bottom: 35px; display: grid; grid-template-columns: 36px 1fr; align-items: center; gap: 11px; width: 210px; padding: 13px 14px; background: #fff; border-radius: 16px; box-shadow: 0 20px 45px rgba(0,0,0,.28); transform: rotate(-5deg); }
+      .secure-chip-icon { display: grid; place-items: center; width: 36px; height: 36px; color: var(--red); background: var(--red-soft); border-radius: 11px; }
+      .secure-chip strong { display: block; font-size: 11px; }
+      .secure-chip span { display: block; margin-top: 2px; color: var(--muted); font-size: 10px; }
+
+      .signal-strip { color: #fff; background: var(--red); }
+      .signal-grid { display: grid; grid-template-columns: repeat(3, 1fr); }
+      .signal { display: flex; align-items: center; gap: 15px; padding: 24px 28px 24px 0; }
+      .signal + .signal { padding-left: 28px; border-left: 1px solid rgba(255,255,255,.27); }
+      .signal-icon { display: grid; place-items: center; width: 36px; height: 36px; border: 1px solid rgba(255,255,255,.35); border-radius: 50%; }
+      .signal strong { display: block; font-size: 13px; }
+      .signal span { display: block; margin-top: 4px; color: rgba(255,255,255,.75); font-size: 11px; }
+
+      .services { background: var(--paper); }
+      .service-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 17px; }
+      .service-card { position: relative; display: flex; flex-direction: column; min-height: 330px; padding: 28px; overflow: hidden; background: #fff; border: 1px solid var(--line); border-radius: 20px; transition: transform .25s var(--ease), box-shadow .25s var(--ease), border-color .25s ease; }
+      .service-card:hover { border-color: rgba(230,50,50,.35); box-shadow: var(--shadow); transform: translateY(-7px); }
+      .service-card::after { content: ""; position: absolute; width: 150px; height: 150px; right: -60px; bottom: -60px; border-radius: 50%; background: var(--red-soft); }
+      .service-num { color: var(--red); font-size: 12px; font-weight: 900; letter-spacing: .12em; }
+      .service-icon { display: grid; place-items: center; width: 47px; height: 47px; margin: 34px 0 23px; color: var(--red); background: var(--red-soft); border-radius: 15px; }
+      .service-card h3 { margin: 0; font-size: 23px; line-height: 1.06; letter-spacing: -.05em; }
+      .service-card p { margin: 13px 0 0; color: var(--muted); font-size: 13px; line-height: 1.65; }
+      .service-card .service-link { position: relative; z-index: 1; display: inline-flex; align-items: center; gap: 7px; width: max-content; margin-top: auto; padding-top: 25px; color: var(--red); font-size: 12px; font-weight: 850; }
+      .service-link span { transition: transform .2s var(--ease); }
+      .service-card:hover .service-link span { transform: translateX(4px); }
+
+      .dark-section { color: #fff; background: var(--ink); }
+      .process-grid { display: grid; grid-template-columns: 1.05fr .95fr; gap: 85px; align-items: start; }
+      .dark-section .eyebrow { color: #ff5a5a; }
+      .dark-section h2 { margin: 14px 0 20px; font-size: clamp(34px, 4.5vw, 59px); line-height: 1.02; letter-spacing: -.06em; }
+      .dark-section .lead { max-width: 440px; color: #aaa8ae; font-size: 15px; line-height: 1.7; }
+      .process-list { border-top: 1px solid var(--line-dark); }
+      .process-item { display: grid; grid-template-columns: 52px 1fr; gap: 20px; padding: 25px 0; border-bottom: 1px solid var(--line-dark); }
+      .process-index { color: #ff5a5a; font-size: 13px; font-weight: 900; }
+      .process-item h3 { margin: 0; font-size: 18px; letter-spacing: -.035em; }
+      .process-item p { max-width: 450px; margin: 9px 0 0; color: #929097; font-size: 13px; line-height: 1.65; }
+
+      .about-grid { display: grid; grid-template-columns: .84fr 1.16fr; align-items: center; gap: 100px; }
+      .about-statement { padding: 42px; color: #fff; background: var(--red); border-radius: 24px; box-shadow: 0 20px 50px rgba(230,50,50,.19); }
+      .about-statement .quote-mark { display: block; margin-bottom: 28px; font-size: 62px; line-height: .6; font-weight: 900; opacity: .36; }
+      .about-statement p { margin: 0; font-size: 27px; line-height: 1.13; letter-spacing: -.055em; font-weight: 760; }
+      .about-copy h2 { margin: 13px 0 21px; font-size: clamp(34px, 4vw, 56px); line-height: 1.02; letter-spacing: -.06em; }
+      .about-copy p { max-width: 570px; color: var(--muted); font-size: 15px; line-height: 1.78; }
+      .about-points { display: grid; grid-template-columns: 1fr 1fr; gap: 21px; margin-top: 29px; padding-top: 24px; border-top: 1px solid var(--line); }
+      .point { display: flex; gap: 11px; font-size: 12px; font-weight: 800; line-height: 1.35; }
+      .point svg { flex: 0 0 auto; color: var(--red); }
+
+      .security { position: relative; overflow: hidden; color: #fff; background: var(--red); }
+      .security::before { content: ""; position: absolute; width: 480px; height: 480px; top: -250px; right: -80px; border: 1px solid rgba(255,255,255,.2); border-radius: 50%; box-shadow: 0 0 0 50px rgba(255,255,255,.04), 0 0 0 100px rgba(255,255,255,.035), 0 0 0 150px rgba(255,255,255,.025); }
+      .security-grid { position: relative; z-index: 1; display: grid; grid-template-columns: 1.15fr .85fr; gap: 90px; align-items: center; }
+      .security .eyebrow { color: #fff; }
+      .security h2 { max-width: 700px; margin: 16px 0 23px; font-size: clamp(36px, 4.7vw, 63px); line-height: 1.01; letter-spacing: -.065em; }
+      .security p { max-width: 550px; margin: 0; color: rgba(255,255,255,.77); line-height: 1.72; font-size: 15px; }
+      .security-list { padding: 25px 0 25px 28px; border-left: 1px solid rgba(255,255,255,.35); }
+      .security-list-item { display: flex; gap: 13px; align-items: flex-start; padding: 15px 0; }
+      .security-list-item svg { flex: 0 0 auto; margin-top: 2px; }
+      .security-list-item strong { display: block; font-size: 13px; }
+      .security-list-item span { display: block; margin-top: 4px; color: rgba(255,255,255,.7); font-size: 11px; line-height: 1.5; }
+
+      .faq-grid { display: grid; grid-template-columns: .7fr 1.3fr; gap: 95px; align-items: start; }
+      .faq-grid h2 { max-width: 320px; margin: 14px 0 0; font-size: clamp(34px, 4.2vw, 57px); line-height: 1.02; letter-spacing: -.06em; }
+      .faq-list { border-top: 1px solid var(--line); }
+      details { border-bottom: 1px solid var(--line); }
+      summary { display: flex; align-items: center; justify-content: space-between; gap: 20px; padding: 22px 0; list-style: none; cursor: pointer; font-size: 15px; font-weight: 800; letter-spacing: -.02em; }
+      summary::-webkit-details-marker { display: none; }
+      summary::after { content: "+"; color: var(--red); font-size: 21px; font-weight: 400; transition: transform .2s var(--ease); }
+      details[open] summary::after { transform: rotate(45deg); }
+      details p { max-width: 620px; margin: -5px 40px 22px 0; color: var(--muted); font-size: 13px; line-height: 1.7; }
+
+      .privacy { padding-top: 0; }
+      .privacy-box { padding: 34px 38px; background: #f1efed; border-radius: 21px; }
+      .privacy-box h2 { margin: 12px 0 12px; font-size: 27px; letter-spacing: -.045em; }
+      .privacy-box p { max-width: 850px; margin: 0; color: var(--muted); font-size: 13px; line-height: 1.75; }
+      .privacy-box p + p { margin-top: 12px; }
+
+      footer { color: #fff; background: var(--ink); }
+      .footer-main { display: grid; grid-template-columns: 1.1fr .9fr 1fr; gap: 70px; padding: 70px 0 55px; }
+      .footer-brand .brand-copy span { color: #88868d; }
+      .footer-brand p { max-width: 270px; margin: 22px 0 0; color: #88868d; font-size: 12px; line-height: 1.7; }
+      footer h3 { margin: 0 0 19px; color: #fff; font-size: 11px; letter-spacing: .16em; text-transform: uppercase; }
+      footer .footer-links { display: grid; gap: 12px; color: #aaa8ae; font-size: 12px; }
+      footer .footer-links a:hover { color: #fff; }
+      .legal p { margin: 0; color: #aaa8ae; font-size: 12px; line-height: 1.75; }
+      .legal p + p { margin-top: 9px; }
+      .footer-bottom { display: flex; justify-content: space-between; gap: 20px; padding: 20px 0 24px; border-top: 1px solid var(--line-dark); color: #77757b; font-size: 10px; line-height: 1.5; }
+      .footer-bottom strong { color: #a6a4a9; font-weight: 700; }
+      .whatsapp-float { position: fixed; z-index: 14; right: 24px; bottom: 24px; display: flex; align-items: center; gap: 10px; min-height: 56px; padding: 0 19px 0 14px; color: #fff; background: #1fae6a; border-radius: 999px; box-shadow: 0 14px 30px rgba(11, 88, 49, .29); font-size: 12px; font-weight: 850; transition: transform .2s var(--ease), background .2s ease; }
+      .whatsapp-float:hover { background: #25c477; transform: translateY(-4px); }
+      .whatsapp-float svg { width: 27px; height: 27px; }
+
+      @media (max-width: 900px) {
+        .nav-links { display: none; }
+        .hero-grid, .process-grid, .security-grid, .about-grid, .faq-grid { grid-template-columns: 1fr; gap: 52px; }
+        .hero-grid { padding-top: 75px; }
+        .hero-art { min-height: 470px; max-width: 510px; width: 100%; margin: 0 auto; }
+        .hero-orbit { right: 10%; }
+        .security-list { padding: 20px 0 0; border-left: 0; border-top: 1px solid rgba(255,255,255,.35); }
+        .footer-main { grid-template-columns: 1fr 1fr; }
+        .footer-brand { grid-column: 1 / -1; }
+      }
+      @media (max-width: 640px) {
+        .wrap { width: min(100% - 36px, 1180px); }
+        .topline .wrap { display: block; text-align: center; line-height: 1.6; }
+        .topline span { display: none; }
+        .nav { min-height: 72px; }
+        .nav-cta { min-height: 40px; padding: 0 13px; font-size: 10px; }
+        .section { padding: 77px 0; }
+        .section-head { display: block; margin-bottom: 34px; }
+        .section-head p { margin-top: 20px; }
+        .hero-grid { min-height: 0; padding: 66px 0 74px; }
+        .display { font-size: clamp(41px, 12vw, 68px); }
+        .hero-actions { align-items: stretch; flex-direction: column; }
+        .hero-actions .btn { width: 100%; }
+        .hero-art { min-height: 380px; transform: scale(.88); transform-origin: top center; margin-bottom: -44px; }
+        .hero-orbit { width: 350px; height: 350px; right: -3%; top: 0; }
+        .hero-card { top: 48px; right: 0; width: min(100%, 340px); }
+        .secure-chip { bottom: 13px; left: 0; }
+        .signal-grid, .service-grid { grid-template-columns: 1fr; }
+        .signal { padding: 19px 0; }
+        .signal + .signal { padding-left: 0; border-left: 0; border-top: 1px solid rgba(255,255,255,.27); }
+        .service-card { min-height: 300px; }
+        .about-statement { padding: 29px; }
+        .about-statement p { font-size: 23px; }
+        .about-points { grid-template-columns: 1fr; }
+        .privacy-box { padding: 27px 24px; }
+        .footer-main { grid-template-columns: 1fr; gap: 38px; padding: 55px 0 40px; }
+        .footer-brand { grid-column: auto; }
+        .footer-bottom { display: block; }
+        .footer-bottom span { display: block; margin-top: 6px; }
+        .whatsapp-float { right: 15px; bottom: 15px; min-height: 52px; padding-right: 16px; }
+        .whatsapp-float span { display: none; }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        html { scroll-behavior: auto; }
+        *, *::before, *::after { transition-duration: .01ms !important; animation-duration: .01ms !important; }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="topline"><div class="wrap"><strong>Atendimento Hnd</strong><span>Um jeito mais simples de cuidar das suas pendências.</span><strong>Atendimento digital e humanizado</strong></div></div>
+    <header>
+      <div class="wrap nav">
+        <a class="brand" href="#inicio" aria-label="Atendimento Hnd - início">
+          <span class="brand-mark">AS</span>
+          <span class="brand-copy"><strong>Atendimento Hnd</strong><span>Clareza para resolver</span></span>
+        </a>
+        <nav class="nav-links" aria-label="Navegação principal">
+          <a href="#solucoes">Soluções</a>
+          <a href="#como-funciona">Como funciona</a>
+          <a href="#quem-somos">Quem somos</a>
+          <a href="#seguranca">Segurança</a>
+          <a href="#duvidas">Dúvidas</a>
+        </nav>
+        <a class="btn btn-red nav-cta" href="https://wa.me/5511938023934?text=Gostaria%20de%20Solicitar%20Atendimento%3A">Falar no WhatsApp <span class="arrow">↗</span></a>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero" id="inicio">
+        <div class="wrap hero-grid">
+          <div class="hero-copy">
+            <div class="eyebrow">Atendimento, sem complicação</div>
+            <h1 class="display"><em>2ª via</em>, boleto atualizado e quitação total.</h1>
+            <p class="hero-lead">Conte com um atendimento direto para solicitar seu boleto atualizado, consultar a quitação total ou encontrar o melhor caminho para uma mensalidade em atraso.</p>
+            <div class="hero-actions">
+              <a class="btn btn-red" href="https://wa.me/5511938023934?text=Gostaria%20de%20Solicitar%20Atendimento%3A">Iniciar atendimento <span class="arrow">↗</span></a>
+              <a class="btn btn-outline" href="#solucoes">Conhecer soluções <span class="arrow">↓</span></a>
+            </div>
+            <div class="hero-note">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z"/><path d="m9 12 2 2 4-4"/></svg>
+              Atendimento com orientação clara. Nunca solicitamos senhas ou códigos de segurança.
+            </div>
+          </div>
+          <div class="hero-art" aria-label="Resumo visual de um atendimento seguro">
+            <div class="hero-orbit"></div>
+            <div class="hero-card">
+              <div class="card-top"><span class="mini-label">Seu atendimento</span><span class="status">Canal ativo</span></div>
+              <h3>Mais clareza para<br />seguir em frente.</h3>
+              <p>Escolha o que você precisa e fale com nosso time pelo canal oficial.</p>
+              <div class="card-divider"></div>
+              <div class="card-row"><span>Solicitação</span><strong>2ª via / quitação</strong></div>
+              <div class="card-row"><span>Formato</span><strong>Digital e orientado</strong></div>
+              <div class="card-row"><span>Canal</span><strong>WhatsApp</strong></div>
+            </div>
+            <div class="secure-chip"><div class="secure-chip-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="10" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></div><div><strong>Atendimento seguro</strong><span>Com transparência em cada etapa</span></div></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="signal-strip" aria-label="Diferenciais do atendimento">
+        <div class="wrap signal-grid">
+          <div class="signal"><span class="signal-icon"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg></span><div><strong>Orientação direta</strong><span>Você sabe o próximo passo</span></div></div>
+          <div class="signal"><span class="signal-icon"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z"/></svg></span><div><strong>Foco em segurança</strong><span>Privacidade em primeiro lugar</span></div></div>
+          <div class="signal"><span class="signal-icon"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a4 4 0 0 1-4 4H8l-5 3V7a4 4 0 0 1 4-4h10a4 4 0 0 1 4 4z"/></svg></span><div><strong>Canal oficial</strong><span>Atendimento via WhatsApp</span></div></div>
+        </div>
+      </section>
+
+      <section class="section services" id="solucoes">
+        <div class="wrap">
+          <div class="section-head"><div><div class="eyebrow">Soluções para o seu momento</div><h2>O que você precisa resolver hoje?</h2></div><p>Encontre atendimento para as situações mais comuns e receba instruções objetivas para avançar.</p></div>
+          <div class="service-grid">
+            <article class="service-card"><span class="service-num">01 / 03</span><div class="service-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M8 13h8M8 17h6"/></svg></div><h3>Solicitar 2ª via</h3><p>Precisa de um novo documento para pagamento? Fale com nosso atendimento e saiba como solicitar.</p><a class="service-link" href="https://wa.me/5511938023934?text=Gostaria%20de%20Solicitar%20Atendimento%3A">Solicitar agora <span>↗</span></a></article>
+            <article class="service-card"><span class="service-num">02 / 03</span><div class="service-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 10h18M7 15h3"/></svg></div><h3>Consultar quitação</h3><p>Entenda as opções disponíveis para regularizar sua situação com mais tranquilidade e organização.</p><a class="service-link" href="https://wa.me/5511938023934?text=Gostaria%20de%20Solicitar%20Atendimento%3A">Consultar quitação <span>↗</span></a></article>
+            <article class="service-card"><span class="service-num">03 / 03</span><div class="service-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 8v4l3 2"/><circle cx="12" cy="12" r="9"/></svg></div><h3>Mensalidade em atraso</h3><p>Converse com o time para entender o próximo passo e buscar uma forma de colocar tudo em dia.</p><a class="service-link" href="https://wa.me/5511938023934?text=Gostaria%20de%20Solicitar%20Atendimento%3A">Buscar orientação <span>↗</span></a></article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section dark-section" id="como-funciona">
+        <div class="wrap process-grid">
+          <div><div class="eyebrow">Um processo mais simples</div><h2>Do primeiro contato à solução, sem ruído.</h2><p class="lead">Nosso atendimento foi pensado para reduzir dúvidas e deixar cada etapa mais fácil de entender.</p><a class="btn btn-light" href="https://wa.me/5511938023934?text=Gostaria%20de%20Solicitar%20Atendimento%3A">Começar atendimento <span class="arrow">↗</span></a></div>
+          <div class="process-list"><div class="process-item"><span class="process-index">01</span><div><h3>Você chama pelo canal oficial</h3><p>Envie uma mensagem contando o que precisa. O time direciona o seu atendimento.</p></div></div><div class="process-item"><span class="process-index">02</span><div><h3>Recebe uma orientação clara</h3><p>Entenda os documentos e informações necessários, sem linguagem complicada.</p></div></div><div class="process-item"><span class="process-index">03</span><div><h3>Avança com segurança</h3><p>Você segue apenas com o que fizer sentido, mantendo o controle de cada decisão.</p></div></div></div>
+        </div>
+      </section>
+
+      <section class="section" id="quem-somos">
+        <div class="wrap about-grid">
+          <div class="about-statement"><span class="quote-mark">“</span><p>Resolver uma pendência pode ser mais leve quando existe informação confiável ao seu lado.</p></div>
+          <div class="about-copy"><div class="eyebrow">Quem somos</div><h2>Atendimento que respeita o seu tempo.</h2><p>Somos uma frente de atendimento dedicada a tornar solicitações financeiras mais organizadas e compreensíveis. Nosso papel é ouvir, orientar e indicar o caminho adequado para cada necessidade.</p><p>Com uma comunicação objetiva e um olhar cuidadoso para a sua privacidade, ajudamos você a dar o próximo passo com mais tranquilidade.</p><div class="about-points"><div class="point"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m5 12 4 4L19 6"/></svg><span>Comunicação simples e respeitosa</span></div><div class="point"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m5 12 4 4L19 6"/></svg><span>Orientação sem pressão</span></div><div class="point"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m5 12 4 4L19 6"/></svg><span>Transparência em cada etapa</span></div><div class="point"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m5 12 4 4L19 6"/></svg><span>Respeito aos seus dados</span></div></div></div>
+        </div>
+      </section>
+
+      <section class="section security" id="seguranca">
+        <div class="wrap security-grid"><div><div class="eyebrow">Atendimento & segurança</div><h2>Informação segura para uma decisão tranquila.</h2><p>Segurança também é saber exatamente com quem você está falando e por que cada informação é solicitada. Por isso, mantenha a conversa no canal oficial e nunca compartilhe senhas, códigos recebidos por SMS ou dados completos de cartão.</p></div><div class="security-list"><div class="security-list-item"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z"/><path d="m9 12 2 2 4-4"/></svg><div><strong>Canal identificado</strong><span>Confirme sempre se a conversa está acontecendo pelo contato oficial.</span></div></div><div class="security-list-item"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L8 18l-4 1 1-4Z"/></svg><div><strong>Clareza antes de agir</strong><span>Leia as orientações e tire suas dúvidas antes de qualquer decisão.</span></div></div><div class="security-list-item"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16v16H4z"/><path d="M8 12h8M8 8h8M8 16h5"/></svg><div><strong>Privacidade respeitada</strong><span>Compartilhe somente o necessário para o atendimento da sua solicitação.</span></div></div></div></div>
+      </section>
+
+      <section class="section" id="duvidas">
+        <div class="wrap faq-grid"><div><div class="eyebrow">Dúvidas frequentes</div><h2>Antes de chamar, talvez a gente já responda.</h2></div><div class="faq-list"><details open><summary>Como solicito uma 2ª via?</summary><p>É só clicar em qualquer botão de atendimento desta página e enviar uma mensagem pelo WhatsApp. O time irá orientar os próximos passos.</p></details><details><summary>Como funciona a consulta de quitação?</summary><p>Você informa que deseja consultar a quitação e recebe as orientações necessárias para que o atendimento localize a sua solicitação.</p></details><details><summary>Posso falar sobre uma mensalidade em atraso?</summary><p>Sim. Explique brevemente a situação no canal oficial para entender quais informações e caminhos podem ser avaliados.</p></details><details><summary>Quais dados não devo compartilhar?</summary><p>Nunca envie senhas, códigos de autenticação, dados completos de cartão ou informações que não sejam necessárias para a sua solicitação.</p></details></div></div>
+      </section>
+
+      <section class="section privacy" id="politica-de-privacidade">
+        <div class="wrap"><div class="privacy-box"><div class="eyebrow">Transparência</div><h2>Política de Privacidade</h2><p>Ao entrar em contato, você pode compartilhar informações necessárias para que o atendimento compreenda e direcione sua solicitação. Esses dados devem ser tratados com responsabilidade, apenas para a finalidade informada e de acordo com a legislação aplicável.</p><p>Não solicite ou compartilhe senhas, códigos de autenticação, dados completos de cartão ou qualquer informação excessiva. Para dúvidas sobre privacidade, use o canal de atendimento e peça orientação antes de enviar seus dados.</p></div></div>
+      </section>
+    </main>
+
+    <footer>
+      <div class="wrap footer-main">
+        <div class="footer-brand"><a class="brand" href="#inicio"><span class="brand-mark">AS</span><span class="brand-copy"><strong style="color:#fff">Atendimento Hnd</strong><span>Clareza para resolver</span></span></a><p>Atendimento claro e seguro para ajudar você a cuidar das suas pendências.</p></div>
+        <div><h3>Navegue</h3><div class="footer-links"><a href="#solucoes">Soluções</a><a href="#como-funciona">Como funciona</a><a href="#quem-somos">Quem somos</a><a href="#seguranca">Segurança</a><a href="#politica-de-privacidade">Política de Privacidade</a></div></div>
+        <div class="legal"><h3>Dados institucionais</h3><p><strong>SOLVER INSTITUICAO DE PAGAMENTO LTDA</strong></p><p>AV SAGITARIO<br />NÚMERO 138, CONJ COMERCIAL 312 A SETOR A TORRE 1<br />CEP 06.473-073</p><p>BAIRRO/DISTRITO<br />SITIO TAMBORE ALPHAVILLE<br />MUNICÍPIO BARUERI — UF SP</p><p>CNPJ 47.377.613/0001-06</p></div>
+      </div>
+      <div class="wrap footer-bottom"><strong>© 2026 Atendimento Hnd. Todos os direitos reservados.</strong><span>Atendimento oficial via WhatsApp: (11) 93802-3934</span></div>
+    </footer>
+
+    <a class="whatsapp-float" href="https://wa.me/5511938023934?text=Gostaria%20de%20Solicitar%20Atendimento%3A" aria-label="Falar com a Atendimento Hnd pelo WhatsApp">
+      <svg viewBox="0 0 32 32" fill="none" aria-hidden="true"><path fill="currentColor" d="M16 3.1A12.8 12.8 0 0 0 5 22.5L3.5 28.3l6-1.5A12.8 12.8 0 1 0 16 3.1Zm0 23.3c-2 0-4-.5-5.7-1.5l-.4-.2-3.5.9.9-3.4-.2-.4a10.5 10.5 0 1 1 8.9 4.6Zm5.8-7.8c-.3-.2-1.8-.9-2.1-1-.3-.1-.5-.2-.7.2-.2.3-.8 1-1 1.2-.2.2-.4.2-.7.1-.3-.2-1.3-.5-2.5-1.6-.9-.8-1.6-1.8-1.8-2.1-.2-.3 0-.5.1-.7l.5-.6c.2-.2.2-.4.3-.6.1-.2 0-.5 0-.7-.1-.2-.7-1.7-.9-2.3-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.6.1-.9.4-.3.3-1.1 1-1.1 2.5s1.1 2.9 1.2 3.1c.2.2 2.2 3.4 5.4 4.7.8.3 1.4.5 1.9.6.8.3 1.5.2 2 .1.6-.1 1.8-.7 2-1.4.3-.7.3-1.3.2-1.4-.1-.1-.3-.2-.6-.4Z"/></svg><span>Falar no WhatsApp</span>
+    </a>
+  </body>
+</html>
